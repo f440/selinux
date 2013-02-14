@@ -19,7 +19,7 @@
 #
 
 execute "disable selinux enforcement" do
-  only_if "which selinuxenabled && selinuxenabled"
+  only_if "[ $(/usr/sbin/getenforce) == 'Enforcing' ]"
   command "setenforce 0"
   action :run
   notifies :create, "template[/etc/selinux/config]"
